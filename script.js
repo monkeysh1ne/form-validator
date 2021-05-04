@@ -28,13 +28,6 @@ function showError(input, message){
     formControl.className = 'form-control success';
   }
 
-  // check email validity
-  function checkEmailValid(email){
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
-
-
 // Event listeners
 form.addEventListener('submit', function(e){
   // disable default action
@@ -95,6 +88,30 @@ function checkLength(input, min, max) {
   }
 }
 
+// check email validity
+function checkEmail(input){
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if(re.test(input.value)) {
+    showSuccess(input);
+  } else {
+    showError(input, 'Email is not valid.');
+  }
+}
+
+function checkPasswordsMatch(input1, input2) {
+  const pass1 = input1.value;
+  const pass2 = input2.value;
+
+  if (pass1 === pass2) {
+    showSuccess(input1);
+    showSuccess(input2);
+  } else {
+    showError(input2, 'Password and Password2 must match.');
+  }
+
+}
+
+
 
 // sentenceCaseFieldName: converst first letter of input ID to ucase then appends rest of input ID to this.
 function sentenceCaseFieldName(input){
@@ -104,5 +121,7 @@ function sentenceCaseFieldName(input){
 checkRequired([username, email, password, password2]);
 checkLength(username, 3, 15);
 checkLength(password, 6, 15);
+checkEmail(email);
+checkPasswordsMatch(password, password2);
 
 });
