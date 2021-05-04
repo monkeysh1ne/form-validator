@@ -78,7 +78,7 @@ form.addEventListener('submit', function(e){
 function checkRequired(inputArray){
   inputArray.forEach(function(input){
     if(input.value.trim() === ''){
-      showError(input, `${getFieldName(input)} is required.`);
+      showError(input, `${sentenceCaseFieldName(input)} is required.`);
     } else {
       showSuccess(input);
     }
@@ -86,8 +86,8 @@ function checkRequired(inputArray){
 }
 
 
-// getFieldName: converst first letter of input ID to ucase then appends rest of input ID to this.  Clunky!!
-function getFieldName(input){
+// getFieldName: converst first letter of input ID to ucase then appends rest of input ID to this.
+function sentenceCaseFieldName(input){
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
