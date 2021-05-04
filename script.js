@@ -85,12 +85,24 @@ function checkRequired(inputArray){
   });
 }
 
+function checkLength(input, min, max) {
+  if(input.value.length < min) {
+    showError(input, `${sentenceCaseFieldName(input)} must be at least ${min} characters.`);
+  } else if(input.value.length > max) {
+    showError(input, `${sentenceCaseFieldName(input)} must be at less than ${max} characters.`);
+  } else {
+    showSuccess(input);
+  }
+}
 
-// getFieldName: converst first letter of input ID to ucase then appends rest of input ID to this.
+
+// sentenceCaseFieldName: converst first letter of input ID to ucase then appends rest of input ID to this.
 function sentenceCaseFieldName(input){
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
 checkRequired([username, email, password, password2]);
+checkLength(username, 3, 15);
+checkLength(password, 6, 15);
 
 });
